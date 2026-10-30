@@ -5,3 +5,9 @@
 [hidden]{display:none!important}
 
 .v3-gallery{margin-top:34px;border-top:1px solid #2f465a;padding-top:26px}.gallery-label{color:#8cbbcd;font:10px var(--mono);letter-spacing:.12em;margin-bottom:17px}.gallery-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.gallery-row button{position:relative;display:block;min-height:150px;overflow:hidden;background:#0f192a;border:1px solid #345067;color:#e4eef8;padding:0;text-align:left}.gallery-row button:hover{border-color:#9cc9dd}.gallery-row img{width:100%;height:180px;object-fit:cover;display:block;filter:saturate(.82);transition:transform .7s cubic-bezier(.2,.7,.2,1)}.gallery-row button:hover img{transform:scale(1.06)}.gallery-row span{position:absolute;left:0;right:0;bottom:0;padding:20px;background:linear-gradient(0deg,#081422ed,transparent);font:11px var(--mono)}@media(max-width:670px){.gallery-row{grid-template-columns:1fr}.gallery-row button img{height:170px}}
+
+/* V3 cinematic optical stage: reserve a clean stage around the interactive creature. */
+.hero:has(.hero-space.three-active) .hero-caption{opacity:0;pointer-events:none;transition:opacity .45s ease}
+.hero-space.three-active .space-station{opacity:.30;filter:contrast(1.1) saturate(.72) blur(1.5px)}
+.hero-space.three-active canvas{filter:drop-shadow(0 28px 50px #5276ce30)}
+@media(prefers-reduced-motion:reduce){.hero:has(.hero-space.three-active) .hero-caption{transition:none}}
