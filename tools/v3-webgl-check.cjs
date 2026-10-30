@@ -11,17 +11,21 @@ const sha = b => crypto.createHash('sha256').update(b).digest('hex');
   const report={url:URL,checkedAt:new Date().toISOString(),checks:{},errors:[]};
   try {
     // GitHub Pages may lag the branch after a push. Do not validate stale JavaScript.
-    const expected=sha(fs.readFileSync('docs/app.js'));
+    const audited=['app.js','kraken-v3-immersive.js'];
+    const expected=audited.map(name=>({name,hash:sha(fs.readFileSync('docs/'+name))}));
     let deployed=false;
     for(let attempt=0;attempt<45;attempt++){
       try{
-        const r=await fetch(URL+'app.js?v='+Date.now(),{cache:'no-store',signal:AbortSignal.timeout(10000)});
-        if(r.ok&&sha(Buffer.from(await r.arrayBuffer()))===expected){deployed=true;break}
+        const hashes=await Promise.all(expected.map(async file=>{
+          const r=await fetch(URL+file.name+'?v='+Date.now(),{cache:'no-store',signal:AbortSignal.timeout(10000)});
+          return r.ok&&sha(Buffer.from(await r.arrayBuffer()))===file.hash;
+        }));
+        if(hashes.every(Boolean)){deployed=true;break}
       }catch(_){}
       await new Promise(resolve=>setTimeout(resolve,3000));
     }
     report.checks.publishedCodeMatchesCommit=deployed;
-    if(!deployed)throw Error('GitHub Pages still serves a different app.js than the checked-out commit');
+    if(!deployed)throw Error('GitHub Pages still serves stale source or cinematic renderer');
     const context=await browser.newContext({viewport:{width:1440,height:900},reducedMotion:'no-preference'});
     const page=await context.newPage();
     page.on('pageerror',e=>report.errors.push(e.message));
