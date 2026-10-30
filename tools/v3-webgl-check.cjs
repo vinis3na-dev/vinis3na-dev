@@ -10,6 +10,18 @@ const sha = b => crypto.createHash('sha256').update(b).digest('hex');
   const browser=await chromium.launch({channel:'chrome',headless:true,args:['--no-sandbox','--enable-unsafe-swiftshader']});
   const report={url:URL,checkedAt:new Date().toISOString(),checks:{},errors:[]};
   try {
+    // GitHub Pages may lag the branch after a push. Do not validate stale JavaScript.
+    const expected=sha(fs.readFileSync('docs/app.js'));
+    let deployed=false;
+    for(let attempt=0;attempt<45;attempt++){
+      try{
+        const r=await fetch(URL+'app.js?v='+Date.now(),{cache:'no-store',signal:AbortSignal.timeout(10000)});
+        if(r.ok&&sha(Buffer.from(await r.arrayBuffer()))===expected){deployed=true;break}
+      }catch(_){}
+      await new Promise(resolve=>setTimeout(resolve,3000));
+    }
+    report.checks.publishedCodeMatchesCommit=deployed;
+    if(!deployed)throw Error('GitHub Pages still serves a different app.js than the checked-out commit');
     const context=await browser.newContext({viewport:{width:1440,height:900},reducedMotion:'no-preference'});
     const page=await context.newPage();
     page.on('pageerror',e=>report.errors.push(e.message));
