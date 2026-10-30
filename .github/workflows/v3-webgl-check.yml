@@ -5,6 +5,7 @@ on:
       - '.github/workflows/v3-webgl-check.yml'
       - 'tools/v3-webgl-check.cjs'
       - 'docs/app.js'
+      - 'docs/kraken-v3-immersive.js'
       - 'docs/index.html'
       - 'docs/styles.css'
   workflow_dispatch:
