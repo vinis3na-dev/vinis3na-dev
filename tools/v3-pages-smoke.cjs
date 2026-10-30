@@ -16,7 +16,7 @@ for(const v of [{name:'desktop',width:1440,height:900},{name:'mobile',width:390,
   await page.locator('.project').first().waitFor({timeout:20000});
   result.checks.projects=(await page.locator('.project').count())===5;
   result.checks.newDesign=(await page.locator('.hero-space .kraken-art').count())===1;
-  result.checks.assetsLoaded=await page.evaluate(async()=>{await Promise.all(Array.from(document.images).map(i=>i.decode().catch(()=>{})));return Array.from(document.images).every(i=>i.complete&&i.naturalWidth>0)});
+  result.checks.assetsLoaded=await page.evaluate(async()=>{const imgs=Array.from(document.images);imgs.forEach(i=>{i.loading='eager'});await Promise.race([Promise.all(imgs.map(i=>i.decode().catch(()=>{}))),new Promise(resolve=>setTimeout(resolve,10000))]);return imgs.every(i=>i.complete&&i.naturalWidth>0)});
   await page.screenshot({path:'v3-captures/'+v.name+'-top.png',fullPage:true,animations:'disabled'});
   await page.locator('[data-filter="jogos"]').click();
   result.checks.gamesFilter=(await page.locator('.project:visible').count())===2;
