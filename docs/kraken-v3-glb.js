@@ -17,7 +17,7 @@ export async function createKrakenStage({canvas,isActive,isReduced,pointer}){
  renderer.setClearColor(0x000000,0);
  const scene=new T.Scene(), camera=new T.PerspectiveCamera(34,1,.1,70);
  camera.position.set(0,-.10,9.3);camera.lookAt(0,-.19,0);
- let gltf=null,mixer=null,clip=null,surfaces=null,disposed=false,frame=0,last=0,played=0;
+ let gltf=null,mixer=null,clip=null,surfaces=null,face=null,disposed=false,frame=0,last=0,played=0;
  const lights=[
    new T.HemisphereLight(0xbde4ff,0x141222,2.1),
    new T.DirectionalLight(0x8adfff,3.3),
@@ -81,6 +81,11 @@ export async function createKrakenStage({canvas,isActive,isReduced,pointer}){
    canvas.dataset.surfaceMaterials=String(surfaces.stats.mappedMaterials);
    canvas.dataset.surfaceMetals=String(surfaces.stats.metalMaterials);
    canvas.dataset.surfaceTextures=String(surfaces.stats.textures);
+   const {installKrakenFace}=await import('./kraken-v3-face.js');
+   face=installKrakenFace(T,model);
+   canvas.dataset.faceBeveled=String(face.stats.installed);
+   canvas.dataset.faceVisorsReplaced=String(face.stats.legacyVisorsHidden);
+   canvas.dataset.faceSlits=String(face.stats.opticalSlits);
    let skinnedPrimitives=0,faces=0;
    model.traverse(obj=>{
       if(obj.isSkinnedMesh){
@@ -113,6 +118,7 @@ export async function createKrakenStage({canvas,isActive,isReduced,pointer}){
    starMat=new T.PointsMaterial({color:0x94d9ef,size:.021,transparent:true,opacity:.55,depthWrite:false});
    stars=new T.Points(starGeo,starMat);scene.add(stars);
  }catch(err){
+   face?.dispose();
    surfaces?.dispose();
    if(gltf)scene.remove(gltf.scene);
    starGeo?.dispose();starMat?.dispose();env.dispose();pmrem.dispose();
@@ -156,6 +162,7 @@ export async function createKrakenStage({canvas,isActive,isReduced,pointer}){
      resizeObserver.disconnect();canvas.removeEventListener('webglcontextlost',onLost);
      mixer?.stopAllAction();
      gltf?.scene.traverse(obj=>{if(obj.geometry)obj.geometry.dispose();const mm=obj.material;if(mm){for(const m of Array.isArray(mm)?mm:[mm])m.dispose()}});
+     face?.dispose();
      surfaces?.dispose();
      starGeo?.dispose();starMat?.dispose();env.dispose();pmrem.dispose();
      for(const p of panels)p.dispose();for(const m of mats)m.dispose();renderer.dispose();
