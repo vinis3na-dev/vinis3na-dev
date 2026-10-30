@@ -11,7 +11,7 @@ const sha = b => crypto.createHash('sha256').update(b).digest('hex');
   const report={url:URL,checkedAt:new Date().toISOString(),checks:{},errors:[]};
   try {
     // GitHub Pages may lag the branch after a push. Do not validate stale JavaScript.
-    const audited=['app.js','kraken-v3-immersive.js','styles.css'];
+    const audited=['app.js','kraken-v3-glb.js','assets/kraken-cinematic-rig.glb','styles.css'];
     const expected=audited.map(name=>({name,hash:sha(fs.readFileSync('docs/'+name))}));
     let deployed=false;
     for(let attempt=0;attempt<45;attempt++){
@@ -53,6 +53,15 @@ const sha = b => crypto.createHash('sha256').update(b).digest('hex');
     if(/INDISPONÍVEL/i.test(buttonLabel))throw Error('3D initialization failed: '+report.errors.join(' | '));
     report.checks.activated=(await button.getAttribute('aria-pressed'))==='true';
     report.checks.canvasVisible=await canvas.isVisible();
+    report.rig=await canvas.evaluate(c=>({
+      asset:c.dataset.model||null,
+      skins:Number(c.dataset.skinCount||0),
+      bones:Number(c.dataset.boneCount||0),
+      clips:Number(c.dataset.animationCount||0)
+    }));
+    report.checks.originalRig=report.rig.asset==='kraken-cinematic-rig.glb'
+      && report.rig.skins===8 && report.rig.bones===80 && report.rig.clips>=1;
+
     report.checks.noCaptionOverlap=!(await page.locator('.hero-caption').isVisible());
 
     report.canvas=await canvas.evaluate(c=>{
@@ -65,6 +74,7 @@ const sha = b => crypto.createHash('sha256').update(b).digest('hex');
     await page.waitForTimeout(1500);
     const frame2=await canvas.screenshot({path:OUT+'/frame-2.png'});
     report.checks.frameChanged=sha(frame1)!==sha(frame2);
+    report.checks.skeletalAnimationAdvanced=await canvas.evaluate(c=>Number(c.dataset.animationElapsed||0)>1.4);
     await page.screenshot({path:OUT+'/full-3d.png',animations:'disabled'});
     await button.click();
     report.checks.returnedToArt=(await button.getAttribute('aria-pressed'))==='false' && !(await canvas.isVisible()) && await page.locator('.hero-caption').isVisible();
