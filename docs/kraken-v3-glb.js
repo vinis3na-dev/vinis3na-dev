@@ -46,6 +46,33 @@ export async function createKrakenStage({canvas,isActive,isReduced,pointer}){
    if(disposed)throw Error('3D viewer closed during load');
    const model=gltf.scene;
    scene.add(model);model.rotation.y=-.11;
+   // Smooth the sculpted centerlines without changing the source GLB, weights,
+   // skeletons or animation. The original arm tubes have 61 circular rings.
+   // Catmull-Rom controls replace the straight-line elbows with organic arcs.
+   let curvedSurfaces=0;
+   model.traverse(obj=>{
+     if(!obj.isSkinnedMesh)return;
+     const g=obj.geometry,p=g?.getAttribute('position');
+     if(!p||p.count!==610)return; // 61 rings x (9 radial sides + seam)
+     const centers=[];
+     for(let ring=0;ring<61;ring++){
+       const center=new T.Vector3();
+       for(let k=0;k<9;k++)center.add(new T.Vector3().fromBufferAttribute(p,ring*10+k));
+       centers.push(center.multiplyScalar(1/9));
+     }
+     const indices=[0,10,20,30,40,50,60];
+     const path=new T.CatmullRomCurve3(indices.map(i=>centers[i]),false,'centripetal',.30);
+     for(let ring=0;ring<61;ring++){
+       const target=path.getPoint(ring/60),delta=target.sub(centers[ring]);
+       for(let k=0;k<10;k++){
+         const id=ring*10+k;
+         p.setXYZ(id,p.getX(id)+delta.x,p.getY(id)+delta.y,p.getZ(id)+delta.z);
+       }
+     }
+     p.needsUpdate=true;g.computeVertexNormals();g.computeBoundingSphere();
+     curvedSurfaces++;
+   });
+   canvas.dataset.smoothedSurfaces=String(curvedSurfaces);
    let skinnedPrimitives=0,faces=0;
    model.traverse(obj=>{
       if(obj.isSkinnedMesh){
