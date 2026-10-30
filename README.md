@@ -1,24 +1,40 @@
 <div align="center">
 
-![KRAKEN Cyberpunk](./assets/kraken-profile-header.svg)
+<img src="./assets/kraken-cinematic-banner.jpg" alt="KRAKEN Cyberpunk — identidade cinematográfica de Vinis3na Dev" width="100%" />
 
-**KRAKEN // NEURAL TERMINAL** · IA · Jogos · Software
+# 🐙 VINIS3NA.DEV
 
-[![GitHub](https://img.shields.io/badge/GitHub-vinis3na--dev-151B2C?style=for-the-badge&logo=github)](https://github.com/vinis3na-dev) [![Portfolio](https://img.shields.io/badge/Portf%C3%B3lio-Em%20prepara%C3%A7%C3%A3o-5C47C9?style=for-the-badge)](https://github.com/vinis3na-dev/vinis3na-dev)
+**KRAKEN // NEURAL TERMINAL**
+
+*Inteligência artificial · Jogos e simulação 3D · Software · Automação*
+
+[**Explorar repositórios**](https://github.com/vinis3na-dev?tab=repositories) · [**Ver projetos em destaque**](#-repositórios-em-destaque) · [**Contato no GitHub**](https://github.com/vinis3na-dev)
 
 </div>
 
 ---
 
-
-## 🐙 KRAKEN // Neural Terminal
+## 🐙 KRAKEN // Terminal de inicialização
 
 <div align="center">
 
-![Terminal KRAKEN](./assets/kraken-terminal.svg)
+![Terminal KRAKEN animado](./assets/kraken-terminal-premium.svg)
 
 </div>
 
+Projetos reais, engenharia criativa e experimentação com sistemas inteligentes.
+
+---
+
+## 🧠 Neural Laboratory
+
+<div align="center">
+
+![Cérebro digital conceitual com sinais pulsantes](./assets/kraken-neural-core.svg)
+
+</div>
+
+Uma representação **conceitual** dos sistemas neurais e da pesquisa com agentes; não é telemetria em tempo real.
 
 ---
 
@@ -26,9 +42,11 @@
 
 <div align="center">
 
-![KRAKEN Project Systems](./assets/kraken-project-systems.svg)
+![Painel animado de projetos](./assets/kraken-project-systems-premium.svg)
 
 </div>
+
+Explore os repositórios diretamente pelos links abaixo. As animações são ilustrativas, sem métricas inventadas.
 
 ### 🎮 Jogos e Simuladores 3D
 
@@ -65,29 +83,21 @@
 
 ## 🛠️ Tecnologias Principais
 
-<div align="center">
+| Desenvolvimento de jogos | Inteligência artificial | Software e infraestrutura |
+|---|---|---|
+| Godot · GDScript · Three.js | Python · Agentes · Sistemas neurais | C# · .NET · TypeScript · React |
+| C++ · Vulkan · OpenGL | Ollama · Automação | Node.js · Vite · Git |
 
-[![Godot](https://img.shields.io/badge/Godot-4.7-478C8F?logo=godotengine&logoColor=white)](https://godotengine.org)
-[![Three.js](https://img.shields.io/badge/Three.js-r180-000000?logo=threedotjs&logoColor=white)](https://threejs.org)
-[![C++](https://img.shields.io/badge/C%2B%2B-20-00599C?logo=cplusplus&logoColor=white)](https://isocpp.org)
-[![Vulkan](https://img.shields.io/badge/Vulkan-1.2-36957B?logo=vulkan&logoColor=white)](https://vulkan.org)
-[![OpenGL](https://img.shields.io/badge/OpenGL-4.6-5A6EA7?logo=opengl&logoColor=white)](https://www.opengl.org)
-[![Python](https://img.shields.io/badge/Python-3.11-3776AB?logo=python&logoColor=white)](https://python.org)
-[![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white)](https://react.dev)
-[![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
-[![Vite](https://img.shields.io/badge/Vite-7-646CFF?logo=vite&logoColor=white)](https://vitejs.dev)
-
-</div>
 
 ---
 
-## 📊 Atividade no GitHub
+## 📡 Atividade no GitHub
 
 Os projetos e suas atividades podem ser consultados diretamente nos repositórios e no [histórico de contribuições](https://github.com/vinis3na-dev). Não são exibidos contadores fixos para evitar informações desatualizadas.
 
 ---
 
-## 🤝 Vamos Conectar
+## 🌐 Conecte-se
 
 <div align="center">
 
