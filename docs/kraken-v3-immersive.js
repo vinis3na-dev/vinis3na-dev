@@ -12,10 +12,29 @@ export async function createKrakenStage({canvas,isActive,isReduced,pointer}){
   renderer.toneMapping=T.ACESFilmicToneMapping;
   renderer.toneMappingExposure=1.2;
   const scene=new T.Scene();
+  // Render real reflected studio light cards into a PMREM environment.
+  // PBR metals otherwise appear unlit/flat without a panorama or HDR source.
+  const studio=new T.Scene();
+  studio.background=new T.Color(0x0b1020);
+  const panel=(x,y,z,w,h,color,angle=0)=>{
+    const g=new T.PlaneGeometry(w,h);
+    const m=new T.MeshBasicMaterial({color,side:T.DoubleSide});
+    const p=new T.Mesh(g,m);p.position.set(x,y,z);p.rotation.y=angle;
+    studio.add(p);disposables.push(()=>{g.dispose();m.dispose()});
+  };
   const camera=new T.PerspectiveCamera(32,1,.1,50);
   camera.position.set(0,.35,9.9);
   const root=new T.Group();root.rotation.y=-.10;scene.add(root);
   const meshList=[],matList=[],geometries=[],disposables=[];
+  panel(-3,3,3,2,5,0x9bdcf8,-.65);
+  panel(3,2,-1,2,6,0xb69bea,.55);
+  panel(1,-3,4,4,1.2,0xe4dfff,-.2);
+  panel(-2,0,-4,1,5,0x4565bd,0);
+  const pmrem=new T.PMREMGenerator(renderer);
+  pmrem.compileEquirectangularShader();
+  const envTarget=pmrem.fromScene(studio,.02);
+  scene.environment=envTarget.texture;
+  disposables.push(()=>{envTarget.dispose();pmrem.dispose()});
   function mat(p){const m=new T.MeshPhysicalMaterial(p);matList.push(m);return m}
   const graphite=mat({color:0x162538,metalness:.83,roughness:.29,clearcoat:.85,clearcoatRoughness:.17});
   const armor=mat({color:0x22384c,metalness:.88,roughness:.24,clearcoat:.70,clearcoatRoughness:.13});
@@ -66,16 +85,23 @@ export async function createKrakenStage({canvas,isActive,isReduced,pointer}){
     const brow=position(mesh(new T.BoxGeometry(.58,.07,.11),graphite,eyeAssembly),side*.38,.49,1.014);
     brow.rotation.z=side*.16;
     const eye=position(mesh(new T.SphereGeometry(.30,34,24),cyan,eyeAssembly),side*.375,.375,1.00);
-    eye.scale.set(1,.27,.16);
+    eye.scale.set(.84,.17,.13);
     eye.rotation.z=side*.16;
-    const aperture=position(mesh(new T.SphereGeometry(.10,16,12),black,eyeAssembly),side*.375,.375,1.052);
-    aperture.scale.set(.65,.40,.23);
-    const highlight=position(mesh(new T.SphereGeometry(.027,12,8),pearl,eyeAssembly),side*.375-.056,.408,1.060);
+    const aperture=position(mesh(new T.SphereGeometry(.058,16,12),black,eyeAssembly),side*.375,.375,1.050);
+    aperture.scale.set(.60,.35,.20);
+    const highlight=position(mesh(new T.SphereGeometry(.016,12,8),pearl,eyeAssembly),side*.375-.036,.397,1.061);
     const earpiece=position(mesh(new T.CylinderGeometry(.34,.34,.20,44),graphite),side*1.045,.45,-.06);
     earpiece.rotation.z=Math.PI/2;
     const earRing=position(mesh(new T.TorusGeometry(.255,.043,10,60),violet),side*1.17,.45,-.06);
     earRing.rotation.y=Math.PI/2;
     position(mesh(new T.TorusGeometry(.12,.025,8,32),cyan),side*1.18,.45,-.06).rotation.y=Math.PI/2;
+  }
+  // V-shaped engineered face contours and subtle panel etching.
+  for(const side of [-1,1]){
+    line([V(side*.12,.97,.69),V(side*.31,.82,.76),V(side*.54,.70,.73),V(side*.73,.61,.57)],.014,silver,root,36);
+    line([V(side*.13,-.06,.79),V(side*.38,-.13,.74),V(side*.61,-.23,.58)],.011,armor,root,32);
+    const antenna=position(mesh(new T.BoxGeometry(.035,.17,.07),violet),side*.68,1.19,.40);
+    antenna.rotation.z=-side*.26;
   }
   // Engraved crest, segmented neck and a suspended reactor.
   position(mesh(new T.CylinderGeometry(.50,.66,.42,40),armor),0,-.62,0);
@@ -148,9 +174,32 @@ export async function createKrakenStage({canvas,isActive,isReduced,pointer}){
     }
     arms.push({bones,phase:index*.78});
   }
+  // Soft additive optical glow, generated locally from a radial alpha mask.
+  const flareCanvas=document.createElement('canvas');
+  flareCanvas.width=flareCanvas.height=128;
+  const ctx=flareCanvas.getContext('2d');
+  if(ctx){
+    const grad=ctx.createRadialGradient(64,64,1,64,64,62);
+    grad.addColorStop(0,'rgba(255,255,255,.95)');
+    grad.addColorStop(.13,'rgba(180,230,255,.52)');
+    grad.addColorStop(.45,'rgba(100,185,255,.16)');
+    grad.addColorStop(1,'rgba(0,40,100,0)');
+    ctx.fillStyle=grad;ctx.fillRect(0,0,128,128);
+  }
+  const flareTexture=new T.CanvasTexture(flareCanvas);
+  disposables.push(()=>flareTexture.dispose());
+  const flare=(x,y,z,s,color,opacity=.28,parent=root)=>{
+    const material=new T.SpriteMaterial({map:flareTexture,color,transparent:true,opacity,blending:T.AdditiveBlending,depthWrite:false,depthTest:true});
+    const sprite=new T.Sprite(material);sprite.position.set(x,y,z);sprite.scale.set(s,s,1);parent.add(sprite);matList.push(material);return sprite;
+  };
+  flare(-.375,.39,1.12,.38,0x5ac9ee,.18);
+  flare(.375,.39,1.12,.38,0x5ac9ee,.18);
+  flare(0,-.80,.77,.50,0x70daff,.25);
   // A restrained orbital apparatus, not a fantasy halo overlay.
   const platform=new T.Group();scene.add(platform);
   const floorRing=position(mesh(new T.TorusGeometry(2.78,.024,8,150),cyan,platform),0,-1.85,0);
+  flare(-1.65,-1.78,0,.7,0x76cfe8,.12,platform);
+  flare(1.65,-1.78,0,.7,0x977dec,.11,platform);
   floorRing.rotation.x=Math.PI/2.28;
   const innerRing=position(mesh(new T.TorusGeometry(2.27,.010,7,120),violet,platform),0,-1.84,0);
   innerRing.rotation.x=Math.PI/2;
@@ -217,6 +266,7 @@ export async function createKrakenStage({canvas,isActive,isReduced,pointer}){
     for(const g of new Set(geometries))g.dispose();
     ringGeometry.dispose();
     for(const m of new Set(matList))m.dispose();
+    for(const disposeResource of disposables)disposeResource();
     renderer.dispose();
   };
   return {dispose,renderer,model:'KRAKEN V3 / articulated cinematic rig'};
