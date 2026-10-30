@@ -1,30 +1,22 @@
 <div align="center">
 
-<img src="./assets/command-center-hero.jpg" width="100%" alt="VINIS3NA.DEV — central de comando KRAKEN cyberpunk, polvo robótico com olhos luminosos, planetas e nave espacial" />
+<img src="./assets/command-center-hero.jpg" alt="VINIS3NA.DEV — KRAKEN Neural Terminal, ambiente cinematográfico espacial" width="100%" />
 
-### KRAKEN // NEURAL TERMINAL
+### KRAKEN // COMMAND CENTER V3
 
-**Inteligência artificial** · **Software** · **Game Development** · **Automação**
+**Engenharia de IA** · **Mundos 3D** · **Software** · **Sistemas neurais**
 
-<a href="https://github.com/vinis3na-dev?tab=repositories">EXPLORAR PROJETOS</a> · <a href="#-projetos-em-destaque">DESTAQUES</a> · <a href="#-laboratório-neural">NEURAL LAB</a>
+[**PROJETOS**](#-projetos-em-destaque) · [**LABORATÓRIO NEURAL**](#-laboratório-neural) · [**REPOSITÓRIOS**](https://github.com/vinis3na-dev?tab=repositories)
 
-<img src="./assets/kraken-idle.gif" width="235" alt="Mini KRAKEN animado com olhos luminosos e movimento flutuante" />
+*Exploração espacial, sistemas inteligentes e experiências digitais.*
 
-*Construindo inteligências digitais, ferramentas e mundos interativos.*
-
-</div>
-
----
-
-<div align="center">
-<img src="./assets/terminal-boot.svg" width="100%" alt="Terminal cyberpunk de inicialização do KRAKEN" />
 </div>
 
 ---
 
 ## 🚀 Projetos em Destaque
 
-Arte conceitual inspirada nos projetos. Clique nas imagens para abrir as informações de cada um.
+Uma seleção visual dos projetos. As artes são conceituais; clique para ler os detalhes.
 
 <table>
 <tr>
@@ -60,10 +52,15 @@ Aplicação de gestão de obras, estoque e processos operacionais. Representaç�
 ## 🧠 Laboratório Neural
 
 <div align="center">
-<img src="./assets/neural-lab.svg" width="100%" alt="Painel animado de conexões e pulsos de rede neural" />
+
+<img src="./assets/card-cerebri-digital.jpg" width="82%" alt="Cerebri Digital — visual cinematográfico de uma rede neural holográfica" />
+
 </div>
 
-> O painel é uma ilustração de conceitos de IA, **não uma medição de atividade em tempo real**.
+**Cerebri Digital:** pesquisa experimental em arquiteturas neurais, agentes, memória e aprendizado. A imagem é uma representação artística, não telemetria ou captura de software.
+
+O laboratório interativo da V3 oferece transições holográficas e movimento suave no navegador; o README do GitHub utiliza imagens estáticas para preservar a qualidade visual.
+
 
 ---
 
@@ -127,10 +124,10 @@ Explore as contribuições e os repositórios pela [página pública do GitHub](
 
 <div align="center">
 
-**KRAKEN // BUILD • EXPLORE • LEARN • IMPROVE**
+**KRAKEN // V3 • EXPLORE • BUILD • EVOLVE**
 
 [Repositórios](https://github.com/vinis3na-dev?tab=repositories) · [Perfil](https://github.com/vinis3na-dev)
 
-<sub>Arte dos painéis: conceito visual, não capturas reais dos softwares. O README não executa Three.js; as experiências 3D interativas precisam de um site separado.</sub>
+<sub>Identidade visual cinematográfica • Artes conceituais, não capturas de aplicativos. A experiência 3D da V3 requer site próprio: o GitHub README não executa WebGL ou JavaScript.</sub>
 
 </div>
