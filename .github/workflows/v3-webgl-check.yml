@@ -7,6 +7,7 @@ on:
       - 'docs/app.js'
       - 'docs/kraken-v3-immersive.js'
       - 'docs/kraken-v3-glb.js'
+      - 'docs/kraken-v3-surfaces.js'
       - 'docs/assets/kraken-cinematic-rig.glb'
       - 'docs/index.html'
       - 'docs/styles.css'
