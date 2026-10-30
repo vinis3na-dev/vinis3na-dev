@@ -100,7 +100,7 @@ export async function createKrakenStage({canvas,isActive,isReduced,pointer}){
     position(mesh(new T.TorusGeometry(.12,.025,8,32),cyan),side*1.18,.45,-.06).rotation.y=Math.PI/2;
   }
   // Central optical rangefinder and subdued visor seams.
-  const rangefinder=position(mesh(new T.BoxGeometry(.09,.17,.057),steel,eyeAssembly),0,.20,1.031);
+  const rangefinder=position(mesh(new T.BoxGeometry(.09,.17,.057),silver,eyeAssembly),0,.20,1.031);
   const coreSensor=position(mesh(new T.BoxGeometry(.027,.065,.064),cyan,eyeAssembly),0,.20,1.073);
   // V-shaped engineered face contours and subtle panel etching.
   for(const side of [-1,1]){
