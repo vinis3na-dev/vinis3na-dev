@@ -57,8 +57,10 @@ const sha = b => crypto.createHash('sha256').update(b).digest('hex');
       asset:c.dataset.model||null,
       skins:Number(c.dataset.skinCount||0),
       bones:Number(c.dataset.boneCount||0),
-      clips:Number(c.dataset.animationCount||0)
+      clips:Number(c.dataset.animationCount||0),
+      curvedSurfaces:Number(c.dataset.smoothedSurfaces||0)
     }));
+    report.checks.curvedTentacles=report.rig.curvedSurfaces>=8;
     report.checks.originalRig=report.rig.asset==='kraken-cinematic-rig.glb'
       && report.rig.skins===8 && report.rig.bones===80 && report.rig.clips>=1;
 
