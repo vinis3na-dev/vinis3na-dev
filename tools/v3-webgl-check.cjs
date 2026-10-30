@@ -28,7 +28,10 @@ const sha = b => crypto.createHash('sha256').update(b).digest('hex');
     if(!deployed)throw Error('GitHub Pages still serves stale source or cinematic renderer');
     const context=await browser.newContext({viewport:{width:1440,height:900},reducedMotion:'no-preference'});
     const page=await context.newPage();
-    page.on('pageerror',e=>report.errors.push(e.message));
+    page.on('pageerror',e=>report.errors.push('pageerror: '+e.message));
+    page.on('console',msg=>{if(['warning','error','warn'].includes(msg.type()))report.errors.push('console-'+msg.type()+': '+msg.text())});
+    page.on('requestfailed',request=>{if(/esm.sh|three@/.test(request.url()))report.errors.push('network: '+request.url()+' '+request.failure()?.errorText)});
+
     const response=await page.goto(URL,{waitUntil:'domcontentloaded',timeout:60000});
     report.httpStatus=response?.status();
     const button=page.locator('#threeToggle'),canvas=page.locator('#threeCanvas');
@@ -38,8 +41,10 @@ const sha = b => crypto.createHash('sha256').update(b).digest('hex');
     await button.click();
     await page.waitForFunction(()=>{
       const b=document.querySelector('#threeToggle'),c=document.querySelector('#threeCanvas');
-      return b?.getAttribute('aria-pressed')==='true' && c && !c.hidden && c.width>=300 && c.height>=200;
-    },null,{timeout:35000});
+      return /INDISPONÍVEL/i.test(b?.textContent||'')||(b?.getAttribute('aria-pressed')==='true' && c && !c.hidden && c.width>=300 && c.height>=200);
+    },null,{timeout:20000});
+    const buttonLabel=await button.innerText();
+    if(/INDISPONÍVEL/i.test(buttonLabel))throw Error('3D initialization failed: '+report.errors.join(' | '));
     report.checks.activated=(await button.getAttribute('aria-pressed'))==='true';
     report.checks.canvasVisible=await canvas.isVisible();
     report.canvas=await canvas.evaluate(c=>{
