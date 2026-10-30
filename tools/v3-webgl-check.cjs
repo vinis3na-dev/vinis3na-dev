@@ -11,7 +11,7 @@ const sha = b => crypto.createHash('sha256').update(b).digest('hex');
   const report={url:URL,checkedAt:new Date().toISOString(),checks:{},errors:[]};
   try {
     // GitHub Pages may lag the branch after a push. Do not validate stale JavaScript.
-    const audited=['app.js','kraken-v3-glb.js','kraken-v3-surfaces.js','assets/kraken-cinematic-rig.glb','styles.css'];
+    const audited=['app.js','kraken-v3-glb.js','kraken-v3-surfaces.js','kraken-v3-face.js','assets/kraken-cinematic-rig.glb','styles.css'];
     const expected=audited.map(name=>({name,hash:sha(fs.readFileSync('docs/'+name))}));
     let deployed=false;
     for(let attempt=0;attempt<45;attempt++){
@@ -66,6 +66,14 @@ const sha = b => crypto.createHash('sha256').update(b).digest('hex');
       metals:Number(c.dataset.surfaceMetals||0),
       textures:Number(c.dataset.surfaceTextures||0)
     }));
+    report.face=await canvas.evaluate(c=>({
+      beveled:c.dataset.faceBeveled==='true',
+      hiddenLegacy:Number(c.dataset.faceVisorsReplaced||0),
+      opticalSlits:Number(c.dataset.faceSlits||0)
+    }));
+    report.checks.sculptedVisor=report.face.beveled
+      && report.face.hiddenLegacy>=1
+      && report.face.opticalSlits===2;
     report.checks.pbrMicroSurfaces=report.surface.uv>=8
       && report.surface.materials>=6
       && report.surface.metals>=3
