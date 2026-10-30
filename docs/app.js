@@ -39,9 +39,9 @@ let threeReady=false,threeActive=false,threeDispose=()=>{};const canvas=$('#thre
 async function startThree(){
  if(threeReady)return true;
  threeButton.disabled=true;
- threeButton.textContent='CARREGANDO KRAKEN CINEMATOGRÁFICO…';
+ threeButton.textContent='CARREGANDO KRAKEN 3D • GLB…';
  try{
-  const {createKrakenStage}=await import('./kraken-v3-immersive.js');
+  const {createKrakenStage}=await import('./kraken-v3-glb.js');
   const stage=await createKrakenStage({
     canvas,
     isActive:()=>threeActive,
