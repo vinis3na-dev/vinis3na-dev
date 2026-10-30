@@ -14,6 +14,8 @@
 @media(max-width:760px){.wrap{width:calc(100% - 28px)}.bar{height:66px}.mobilemenu{display:block}.links{display:none;position:absolute;top:66px;left:0;right:0;background:#0a1524;padding:22px;flex-direction:column;align-items:start;border-bottom:1px solid var(--edge)}.links.open{display:flex}.ghlink{display:none}.hero-description{align-items:start;flex-direction:column}.section{padding:48px 0}.projects{grid-template-columns:repeat(2,minmax(0,1fr))}.project img{height:150px}.pcontent p{min-height:70px}.section-heading{display:block}.section-heading p{margin-top:10px}.lab{grid-template-columns:1fr}.tabs{flex-direction:row;overflow:auto;border-right:0;border-bottom:1px solid #34516a}.tab{flex:0 0 auto}.stage{grid-template-columns:1fr}.stage-art{min-height:290px}.techs{grid-template-columns:1fr}}
 @media(max-width:430px){.projects{grid-template-columns:1fr}.project img{height:230px}.pcontent p{min-height:auto}.buttons{width:100%}.buttons .btn{flex:1}.brand{font-size:14px}}
 @media(prefers-reduced-motion:reduce){*,*:after,*:before{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+.viewer3d{background:#071321;color:#eaf4ff;border:1px solid #6086a4;box-shadow:0 24px 85px #000d;width:min(900px,calc(100vw - 24px));padding:20px;max-height:93vh}.viewer3d::backdrop{background:#010612e8;backdrop-filter:blur(10px)}.viewertop{display:flex;align-items:center;justify-content:space-between;gap:12px}.viewer3d h2{font-size:23px;margin:13px 0}.viewer3d p{color:#abc3d7;line-height:1.6;font-size:13px}.viewer3d canvas{display:block;width:100%;aspect-ratio:16 / 9;background:radial-gradient(ellipse at 50% 48%,#152541,#050a14 72%);border:1px solid #334e69;touch-action:pan-y}
 </style>
 </head>
 <body>
@@ -27,7 +29,7 @@
 <main>
 <section id="inicio" class="intro wrap">
 <div class="hero-art"><img src="https://raw.githubusercontent.com/vinis3na-dev/vinis3na-dev/main/assets/command-center-hero.jpg" alt="Cena cinematográfica de uma central de comando espacial com o KRAKEN." width="1920" height="860"><span class="scanner" aria-hidden="true"></span></div>
-<div class="hero-description"><div><span class="overline">03 / CINEMATIC EDITION • EXPERIÊNCIA CONCEITUAL</span><h1>Desenvolvendo o <span class="gradient">próximo mundo.</span></h1><p>Inteligência artificial, sistemas neurais, jogos e engenharia de software. Uma vitrine pessoal construída para explorar novas ideias — sem métricas ou resultados inventados.</p></div><div class="buttons"><a class="btn" href="#projetos">EXPLORAR PROJETOS ↗</a><a class="btn secondary" href="#laboratorio">ENTRAR NO HOLODECK ⇢</a></div></div>
+<div class="hero-description"><div><span class="overline">03 / CINEMATIC EDITION • EXPERIÊNCIA CONCEITUAL</span><h1>Desenvolvendo o <span class="gradient">próximo mundo.</span></h1><p>Inteligência artificial, sistemas neurais, jogos e engenharia de software. Uma vitrine pessoal construída para explorar novas ideias — sem métricas ou resultados inventados.</p></div><div class="buttons"><a class="btn" href="#projetos">EXPLORAR PROJETOS ↗</a><a class="btn secondary" href="#laboratorio">ENTRAR NO HOLODECK ⇢</a><button type="button" class="btn secondary" id="threebtn">VISUALIZAR MODELO 3D ↗</button></div></div>
 </section>
 <section id="projetos" class="section wrap">
 <div class="section-heading"><div><span class="overline">// ARQUIVO DE PROJETOS</span><h2>Projetos <span class="gradient">selecionados.</span></h2></div><p>Artes conceituais usadas como apresentação, não capturas de software. Alguns repositórios são privados.</p></div>
@@ -86,6 +88,49 @@ e('mobilemenu').addEventListener('click',()=>{const nav=e('mainnav');const opene
 for(const a of e('mainnav').querySelectorAll('a'))a.addEventListener('click',()=>{e('mainnav').classList.remove('open');e('mobilemenu').setAttribute('aria-expanded','false')});
 pick(projects[0]);
 })();
+</script>
+
+<dialog class="viewer3d" id="viewer3d" aria-labelledby="viewertitle"><div class="viewertop"><span class="overline">KRAKEN / 3D CONCEPT DEMO</span><button type="button" class="btn secondary" id="close3d">FECHAR ×</button></div><h2 id="viewertitle">KRAKEN — modelo procedural experimental</h2><canvas id="viewerCanvas" aria-label="Visualização tridimensional conceitual do KRAKEN"></canvas><p id="viewermsg" role="status">Modelo experimental, não uma reprodução da arte cinematográfica. Movimento desativado para quem prefere movimento reduzido.</p></dialog>
+<script type="module">
+const openButton=document.getElementById('threebtn'), viewer=document.getElementById('viewer3d'), closeButton=document.getElementById('close3d'), canvas=document.getElementById('viewerCanvas'), message=document.getElementById('viewermsg');
+let running=false,frame=0,renderer=null,clock=null;
+closeButton.addEventListener('click',()=>viewer.close());
+viewer.addEventListener('close',()=>{running=false;cancelAnimationFrame(frame)});
+viewer.addEventListener('click',ev=>{if(ev.target===viewer)viewer.close()});
+openButton.addEventListener('click',async()=>{
+ viewer.showModal();message.textContent='Carregando modelo tridimensional experimental…';
+ if(renderer){running=true;window.dispatchEvent(new Event('kraken3d:resume'));return}
+ try{
+  const T=await import('https://cdn.jsdelivr.net/npm/three@0.166.1/build/three.module.js');
+  renderer=new T.WebGLRenderer({canvas,antialias:true,alpha:true,powerPreference:'low-power'});
+  renderer.setPixelRatio(Math.min(devicePixelRatio||1,2));renderer.setSize(800,450,false);renderer.outputColorSpace=T.SRGBColorSpace;
+  const scene=new T.Scene(),camera=new T.PerspectiveCamera(39,800/450,.1,100);camera.position.set(0,1.0,7.6);
+  scene.add(new T.AmbientLight(0x355c8a,2.3));
+  const key=new T.PointLight(0x65d8ff,70,15);key.position.set(-3,3,4);scene.add(key);
+  const rim=new T.PointLight(0x9f65ff,65,16);rim.position.set(3,1,-2);scene.add(rim);
+  const gold=new T.MeshStandardMaterial({color:0x15223c,metalness:.85,roughness:.24});
+  const glow=new T.MeshStandardMaterial({color:0x1cd6ff,emissive:0x06aaff,emissiveIntensity:2.5,metalness:.5,roughness:.22});
+  const violet=new T.MeshStandardMaterial({color:0x9150e7,emissive:0x6235a6,emissiveIntensity:.8,metalness:.6,roughness:.28});
+  const group=new T.Group();scene.add(group);
+  const head=new T.Mesh(new T.SphereGeometry(1.04,48,32),gold);head.scale.set(1.08,.94,.98);head.position.y=.42;group.add(head);
+  const capsule=new T.Mesh(new T.SphereGeometry(.62,32,24),gold);capsule.position.y=-.61;group.add(capsule);
+  for(const x of [-.37,.37]){const e=new T.Mesh(new T.SphereGeometry(.20,32,24),glow);e.position.set(x,.38,.92);group.add(e);const ring=new T.Mesh(new T.TorusGeometry(.29,.042,8,48),violet);ring.position.copy(e.position);ring.position.z-=.08;group.add(ring)}
+  const tentacles=[];
+  for(let i=0;i<8;i++){const a=i*Math.PI/4;
+   const points=[];for(let j=0;j<=20;j++){const t=j/20;points.push(new T.Vector3(Math.cos(a)*(0.34+2*t)+Math.sin(t*5+i)*.08,-.53-0.9*Math.sin(t*Math.PI/1.4)+.3*t,Math.sin(a)*(0.34+1.45*t)+.2*t));}
+   const path=new T.CatmullRomCurve3(points);const mesh=new T.Mesh(new T.TubeGeometry(path,48,.105,10,false),i%2?violet:gold);group.add(mesh);tentacles.push(mesh);
+  }
+  const ring=new T.Mesh(new T.TorusGeometry(2.25,.025,10,120),glow);ring.rotation.x=Math.PI/2.3;ring.position.y=-1.5;scene.add(ring);
+  const ring2=new T.Mesh(new T.TorusGeometry(1.85,.016,8,120),violet);ring2.rotation.x=Math.PI/2;ring2.position.y=-1.49;scene.add(ring2);
+  const particles=[];const starMaterial=new T.MeshBasicMaterial({color:0x74ddff});
+  for(let i=0;i<55;i++){const star=new T.Mesh(new T.SphereGeometry(.012,5,5),starMaterial);star.position.set((Math.random()-.5)*15,(Math.random()-.5)*7,-3-Math.random()*5);scene.add(star);particles.push(star)}
+  const motion=window.matchMedia('(prefers-reduced-motion: reduce)');
+  let pointerX=0;canvas.addEventListener('pointermove',e=>{const r=canvas.getBoundingClientRect();pointerX=((e.clientX-r.left)/r.width-.5)*2});
+  clock=new T.Clock();message.textContent='Modelo 3D demonstrativo • arraste o cursor para orientar • efeitos sonoros não ativados';
+  function render(){if(!running||!viewer.open)return;const t=clock.getElapsedTime();if(!motion.matches){group.rotation.y+=(pointerX*.3-group.rotation.y)*.04;group.position.y=Math.sin(t*.8)*.09;ring.rotation.z=t*.065;ring2.rotation.z=-t*.08}else{group.rotation.y=0;group.position.y=0}renderer.render(scene,camera);frame=requestAnimationFrame(render)}
+  window.addEventListener('kraken3d:resume',()=>{render()});running=true;render();
+ }catch(err){renderer=null;message.textContent='A visualização 3D está indisponível neste navegador ou sem acesso ao módulo externo. O restante da V3 permanece funcional.';}
+});
 </script>
 </body>
 </html>
