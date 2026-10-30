@@ -12,6 +12,16 @@
 
 </div>
 
+<div align="center">
+
+<a href="https://vinis3na-dev.github.io/vinis3na-dev/"><img src="https://img.shields.io/badge/EXPLORAR-KRAKEN%20COMMAND%20CENTER%20V3-05B8E8?style=for-the-badge&labelColor=0B1525" alt="Abrir portfólio interativo KRAKEN V3" /></a>
+
+**[Abrir portfólio cinematográfico V3](https://vinis3na-dev.github.io/vinis3na-dev/)** · [Explorar repositórios](https://github.com/vinis3na-dev?tab=repositories)
+
+</div>
+
+
+
 ---
 
 ## 🚀 Projetos em Destaque
