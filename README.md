@@ -1,52 +1,87 @@
 <div align="center">
 
-<img src="./assets/kraken-cinematic-banner.jpg" alt="KRAKEN Cyberpunk — identidade cinematográfica de Vinis3na Dev" width="100%" />
+<img src="./assets/command-center-hero.jpg" width="100%" alt="VINIS3NA.DEV — central de comando KRAKEN cyberpunk, polvo robótico com olhos luminosos, planetas e nave espacial" />
 
-# 🐙 VINIS3NA.DEV
+### KRAKEN // NEURAL TERMINAL
 
-**KRAKEN // NEURAL TERMINAL**
+**Inteligência artificial** · **Software** · **Game Development** · **Automação**
 
-*Inteligência artificial · Jogos e simulação 3D · Software · Automação*
+<a href="https://github.com/vinis3na-dev?tab=repositories">EXPLORAR PROJETOS</a> · <a href="#-projetos-em-destaque">DESTAQUES</a> · <a href="#-laboratório-neural">NEURAL LAB</a>
 
-[**Explorar repositórios**](https://github.com/vinis3na-dev?tab=repositories) · [**Ver projetos em destaque**](#-repositórios-em-destaque) · [**Contato no GitHub**](https://github.com/vinis3na-dev)
+<img src="./assets/kraken-idle.gif" width="235" alt="Mini KRAKEN animado com olhos luminosos e movimento flutuante" />
+
+*Construindo inteligências digitais, ferramentas e mundos interativos.*
 
 </div>
 
 ---
 
-## 🐙 KRAKEN // Terminal de inicialização
-
 <div align="center">
-
-![Terminal KRAKEN animado](./assets/kraken-terminal-premium.svg)
-
+<img src="./assets/terminal-boot.svg" width="100%" alt="Terminal cyberpunk de inicialização do KRAKEN" />
 </div>
-
-Projetos reais, engenharia criativa e experimentação com sistemas inteligentes.
 
 ---
 
-## 🧠 Neural Laboratory
+## 🚀 Projetos em Destaque
 
-<div align="center">
+Arte conceitual inspirada nos projetos. Clique nas imagens para abrir as informações de cada um.
 
-![Cérebro digital conceitual com sinais pulsantes](./assets/kraken-neural-core.svg)
+<table>
+<tr>
+<td align="center" width="50%"><a href="#kraken-code"><img src="./assets/card-kraken-code.jpg" width="100%" alt="KRAKEN Code — interface cyberpunk com mascote e painéis" /></a></td>
+<td align="center" width="50%"><a href="#cerebri-digital"><img src="./assets/card-cerebri-digital.jpg" width="100%" alt="Cerebri Digital — cérebro neural holográfico" /></a></td>
+</tr>
+<tr>
+<td align="center"><a href="#renegade-wars"><img src="./assets/card-renegade-wars.jpg" width="100%" alt="Renegade Wars — nave espacial procedural" /></a></td>
+<td align="center"><a href="#afterfall"><img src="./assets/card-afterfall.jpg" width="100%" alt="Afterfall — sobrevivente num mundo pós-apocalíptico" /></a></td>
+</tr>
+<tr>
+<td align="center" colspan="2"><a href="#obra-pronta"><img src="./assets/card-obra-pronta.jpg" width="48%" alt="Obra-Pronta — gestão de obras, estoque e requisições" /></a></td>
+</tr>
+</table>
 
-</div>
+### Kraken Code
+Assistente e ambiente desktop para desenvolvimento com agentes e ferramentas de IA. **Projeto privado:** [abrir repositório, caso tenha acesso](https://github.com/vinis3na-dev/kraken-code).
 
-Uma representação **conceitual** dos sistemas neurais e da pesquisa com agentes; não é telemetria em tempo real.
+### Cerebri Digital
+Laboratório experimental de sistemas neurais, memória, planejamento e agentes. Representação visual conceitual.
+
+### Renegade Wars
+Jogo espacial 3D procedural desenvolvido em C# com foco em exploração e sistemas de jogo. Representação visual conceitual.
+
+### Afterfall
+Experimentos em sobrevivência 3D, NPCs autônomos e simulação em Godot. **Projeto privado:** [abrir repositório, caso tenha acesso](https://github.com/vinis3na-dev/AFTERFALL).
+
+### Obra-Pronta
+Aplicação de gestão de obras, estoque e processos operacionais. Representação visual conceitual.
 
 ---
 
-## 🚀 Repositórios em Destaque
+## 🧠 Laboratório Neural
 
 <div align="center">
-
-![Painel animado de projetos](./assets/kraken-project-systems-premium.svg)
-
+<img src="./assets/neural-lab.svg" width="100%" alt="Painel animado de conexões e pulsos de rede neural" />
 </div>
 
-Explore os repositórios diretamente pelos links abaixo. As animações são ilustrativas, sem métricas inventadas.
+> O painel é uma ilustração de conceitos de IA, **não uma medição de atividade em tempo real**.
+
+---
+
+## 🛠️ Tecnologias e Ferramentas
+
+| Inteligência artificial | Jogos e gráficos | Aplicações e infraestrutura |
+|:--:|:--:|:--:|
+| Python · Agentes · Ollama | Godot · GDScript · Three.js | TypeScript · JavaScript · React |
+| Redes neurais · Memória | C# · C++ · OpenGL · Vulkan | .NET · Node.js · Vite · Git |
+
+---
+
+## 📂 Outros Projetos
+
+<details>
+<summary><b>Expandir catálogo de repositórios e experimentos</b></summary>
+
+Os links abaixo foram preservados do perfil anterior. Alguns repositórios são privados e podem não estar visíveis para todos os visitantes.
 
 ### 🎮 Jogos e Simuladores 3D
 
@@ -79,37 +114,23 @@ Explore os repositórios diretamente pelos links abaixo. As animações são ilu
 |---|---|---|
 | [last-delivery](https://github.com/vinis3na-dev/last-delivery) | Jogo pós-apocalíptico — sobrevivência/entrega, HTML5 Canvas puro | HTML5 + JS |
 
----
 
-## 🛠️ Tecnologias Principais
-
-| Desenvolvimento de jogos | Inteligência artificial | Software e infraestrutura |
-|---|---|---|
-| Godot · GDScript · Three.js | Python · Agentes · Sistemas neurais | C# · .NET · TypeScript · React |
-| C++ · Vulkan · OpenGL | Ollama · Automação | Node.js · Vite · Git |
-
+</details>
 
 ---
 
-## 📡 Atividade no GitHub
+## 📡 Atividade e Contribuições
 
-Os projetos e suas atividades podem ser consultados diretamente nos repositórios e no [histórico de contribuições](https://github.com/vinis3na-dev). Não são exibidos contadores fixos para evitar informações desatualizadas.
-
----
-
-## 🌐 Conecte-se
-
-<div align="center">
-
-[![GitHub](https://img.shields.io/badge/GitHub-vinis3na-dev-181717?logo=github&logoColor=white)](https://github.com/vinis3na-dev)
-[![OpenCode](https://img.shields.io/badge/OpenCode-Dev-5A6EA7?logo=visualstudiocode&logoColor=white)](https://opencode.ai)
-
-</div>
+Explore as contribuições e os repositórios pela [página pública do GitHub](https://github.com/vinis3na-dev). Não exibo contadores fixos ou status fictícios.
 
 ---
 
 <div align="center">
 
-**Feito com 🐙 e muito café por vinis3na-dev**
+**KRAKEN // BUILD • EXPLORE • LEARN • IMPROVE**
+
+[Repositórios](https://github.com/vinis3na-dev?tab=repositories) · [Perfil](https://github.com/vinis3na-dev)
+
+<sub>Arte dos painéis: conceito visual, não capturas reais dos softwares. O README não executa Three.js; as experiências 3D interativas precisam de um site separado.</sub>
 
 </div>
