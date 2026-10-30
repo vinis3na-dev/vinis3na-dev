@@ -4,6 +4,9 @@ on:
     paths:
       - '.github/workflows/v3-webgl-check.yml'
       - 'tools/v3-webgl-check.cjs'
+      - 'docs/app.js'
+      - 'docs/index.html'
+      - 'docs/styles.css'
   workflow_dispatch:
   workflow_run:
     workflows:
