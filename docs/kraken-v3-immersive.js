@@ -84,18 +84,24 @@ export async function createKrakenStage({canvas,isActive,isReduced,pointer}){
   for(const side of [-1,1]){
     const brow=position(mesh(new T.BoxGeometry(.58,.07,.11),graphite,eyeAssembly),side*.38,.49,1.014);
     brow.rotation.z=side*.16;
-    const eye=position(mesh(new T.SphereGeometry(.30,34,24),cyan,eyeAssembly),side*.375,.375,1.00);
-    eye.scale.set(.84,.17,.13);
-    eye.rotation.z=side*.16;
-    const aperture=position(mesh(new T.SphereGeometry(.058,16,12),black,eyeAssembly),side*.375,.375,1.050);
-    aperture.scale.set(.60,.35,.20);
-    const highlight=position(mesh(new T.SphereGeometry(.016,12,8),pearl,eyeAssembly),side*.375-.036,.397,1.061);
+    // Narrow, angular optical aperture: deliberate instrument design, not a cartoon eye.
+    const opticBack=position(mesh(new T.BoxGeometry(.45,.106,.052),black,eyeAssembly),side*.375,.375,1.016);
+    opticBack.rotation.z=side*.15;
+    const optic=position(mesh(new T.BoxGeometry(.36,.032,.020),cyan,eyeAssembly),side*.375,.375,1.064);
+    optic.rotation.z=side*.15;
+    const sensor=position(mesh(new T.BoxGeometry(.018,.044,.025),violet,eyeAssembly),side*.375,.375,1.082);
+    sensor.rotation.z=side*.15;
+    const slitGlint=position(mesh(new T.BoxGeometry(.065,.011,.014),pearl,eyeAssembly),side*.375-.11,.383,1.083);
+    slitGlint.rotation.z=side*.15;
     const earpiece=position(mesh(new T.CylinderGeometry(.34,.34,.20,44),graphite),side*1.045,.45,-.06);
     earpiece.rotation.z=Math.PI/2;
     const earRing=position(mesh(new T.TorusGeometry(.255,.043,10,60),violet),side*1.17,.45,-.06);
     earRing.rotation.y=Math.PI/2;
     position(mesh(new T.TorusGeometry(.12,.025,8,32),cyan),side*1.18,.45,-.06).rotation.y=Math.PI/2;
   }
+  // Central optical rangefinder and subdued visor seams.
+  const rangefinder=position(mesh(new T.BoxGeometry(.09,.17,.057),steel,eyeAssembly),0,.20,1.031);
+  const coreSensor=position(mesh(new T.BoxGeometry(.027,.065,.064),cyan,eyeAssembly),0,.20,1.073);
   // V-shaped engineered face contours and subtle panel etching.
   for(const side of [-1,1]){
     line([V(side*.12,.97,.69),V(side*.31,.82,.76),V(side*.54,.70,.73),V(side*.73,.61,.57)],.014,silver,root,36);
