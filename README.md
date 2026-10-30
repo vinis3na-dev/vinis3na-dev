@@ -24,6 +24,12 @@
 
 ## 🚀 Repositórios em Destaque
 
+<div align="center">
+
+![KRAKEN Project Systems](./assets/kraken-project-systems.svg)
+
+</div>
+
 ### 🎮 Jogos e Simuladores 3D
 
 | Repositório | Descrição | Tecnologia |
@@ -75,15 +81,9 @@
 
 ---
 
-## 📊 Estatísticas
+## 📊 Atividade no GitHub
 
-<div align="center">
-
-![Total de repositórios](https://img.shields.io/badge/Repositórios-17-8B5CF6?style=for-the-badge)
-![Linguagens principais](https://img.shields.io/badge/Linguagens-5-3B82F6?style=for-the-badge)
-![Projetos privados](https://img.shields.io/badge/Privados-17-10B981?style=for-the-badge)
-
-</div>
+Os projetos e suas atividades podem ser consultados diretamente nos repositórios e no [histórico de contribuições](https://github.com/vinis3na-dev). Não são exibidos contadores fixos para evitar informações desatualizadas.
 
 ---
 
