@@ -29,7 +29,13 @@ const sha = b => crypto.createHash('sha256').update(b).digest('hex');
     const context=await browser.newContext({viewport:{width:1440,height:900},reducedMotion:'no-preference'});
     const page=await context.newPage();
     page.on('pageerror',e=>report.errors.push('pageerror: '+e.message));
-    page.on('console',msg=>{if(['warning','error','warn'].includes(msg.type()))report.errors.push('console-'+msg.type()+': '+msg.text())});
+    page.on('console',msg=>{
+      if(!['warning','error','warn'].includes(msg.type()))return;
+      const message=msg.text();
+      // Chromium SwiftShader warns about intentional screenshot readback; not a site exception.
+      if(/GPU stall due to ReadPixels/.test(message))return;
+      report.errors.push('console-'+msg.type()+': '+message);
+    });
     page.on('requestfailed',request=>{if(/esm.sh|three@/.test(request.url()))report.errors.push('network: '+request.url()+' '+request.failure()?.errorText)});
 
     const response=await page.goto(URL,{waitUntil:'domcontentloaded',timeout:60000});
