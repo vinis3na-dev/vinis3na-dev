@@ -60,5 +60,5 @@ async function startThree(){
   if(threeReady)threeButton.disabled=false;
  }
 }
-threeButton.addEventListener('click',async()=>{if(!threeActive){canvas.hidden=false;const ok=await startThree();if(!ok){canvas.hidden=true;return}threeActive=true;space.classList.add('three-active');threeButton.textContent='VOLTAR À ARTE CINEMATOGRÁFICA';threeButton.setAttribute('aria-pressed','true')}else{threeActive=false;space.classList.remove('three-active');canvas.hidden=true;threeButton.textContent='VISUALIZAR MODELO 3D ↗';threeButton.setAttribute('aria-pressed','false')}});
+threeButton.addEventListener('click',async()=>{if(!threeActive){canvas.hidden=false;const ok=await startThree();if(!ok){canvas.hidden=true;return}threeActive=true;space.classList.add('three-active');hero.classList.add('three-view');threeButton.textContent='VOLTAR À ARTE CINEMATOGRÁFICA';threeButton.setAttribute('aria-pressed','true')}else{threeActive=false;space.classList.remove('three-active');hero.classList.remove('three-view');canvas.hidden=true;threeButton.textContent='VISUALIZAR MODELO 3D ↗';threeButton.setAttribute('aria-pressed','false')}});
 addEventListener('pagehide',()=>{cancelAnimationFrame(frame);observer.disconnect();threeDispose()},{once:true});
