@@ -11,3 +11,6 @@
 .hero-space.three-active .space-station{opacity:.30;filter:contrast(1.1) saturate(.72) blur(1.5px)}
 .hero-space.three-active canvas{filter:drop-shadow(0 28px 50px #5276ce30)}
 @media(prefers-reduced-motion:reduce){.hero:has(.hero-space.three-active) .hero-caption{transition:none}}
+
+/* Hero captions belong to the still illustration, never the 3D model. */
+.hero.three-view .hero-caption{display:none!important}
