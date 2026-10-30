@@ -11,7 +11,7 @@ const sha = b => crypto.createHash('sha256').update(b).digest('hex');
   const report={url:URL,checkedAt:new Date().toISOString(),checks:{},errors:[]};
   try {
     // GitHub Pages may lag the branch after a push. Do not validate stale JavaScript.
-    const audited=['app.js','kraken-v3-immersive.js'];
+    const audited=['app.js','kraken-v3-immersive.js','styles.css'];
     const expected=audited.map(name=>({name,hash:sha(fs.readFileSync('docs/'+name))}));
     let deployed=false;
     for(let attempt=0;attempt<45;attempt++){
@@ -53,6 +53,8 @@ const sha = b => crypto.createHash('sha256').update(b).digest('hex');
     if(/INDISPONÍVEL/i.test(buttonLabel))throw Error('3D initialization failed: '+report.errors.join(' | '));
     report.checks.activated=(await button.getAttribute('aria-pressed'))==='true';
     report.checks.canvasVisible=await canvas.isVisible();
+    report.checks.noCaptionOverlap=!(await page.locator('.hero-caption').isVisible());
+
     report.canvas=await canvas.evaluate(c=>{
       const gl=c.getContext('webgl2')||c.getContext('webgl');
       return {width:c.width,height:c.height,context:!!gl,version:gl?.getParameter(gl.VERSION)||null};
@@ -65,7 +67,7 @@ const sha = b => crypto.createHash('sha256').update(b).digest('hex');
     report.checks.frameChanged=sha(frame1)!==sha(frame2);
     await page.screenshot({path:OUT+'/full-3d.png',animations:'disabled'});
     await button.click();
-    report.checks.returnedToArt=(await button.getAttribute('aria-pressed'))==='false' && !(await canvas.isVisible());
+    report.checks.returnedToArt=(await button.getAttribute('aria-pressed'))==='false' && !(await canvas.isVisible()) && await page.locator('.hero-caption').isVisible();
     report.checks.noPageErrors=report.errors.length===0;
     await context.close();
     // New context: deny the 3D CDN and verify cinematic fallback survives failure.
