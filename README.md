@@ -1,18 +1,21 @@
 <div align="center">
 
-# 🐙 vinis3na-dev
+![KRAKEN Cyberpunk](./assets/kraken-profile-header.svg)
 
-Desenvolvedor de jogos, simuladores e ferramentas de IA. Criador de experiências imersivas com Godot, Three.js, C++/Vulkan e Python.
+**KRAKEN // NEURAL TERMINAL** · IA · Jogos · Software
+
+[![GitHub](https://img.shields.io/badge/GitHub-vinis3na--dev-151B2C?style=for-the-badge&logo=github)](https://github.com/vinis3na-dev) [![Portfolio](https://img.shields.io/badge/Portf%C3%B3lio-Em%20prepara%C3%A7%C3%A3o-5C47C9?style=for-the-badge)](https://github.com/vinis3na-dev/vinis3na-dev)
 
 </div>
 
 ---
 
+
 ## 🐙 O Polvo do Portfólio
 
 <div align="center">
 
-```svg
+```xml
 <svg width="300" height="300" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="octoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
