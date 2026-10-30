@@ -5,23 +5,32 @@ on:
       - '.github/workflows/v3-webgl-check.yml'
       - 'tools/v3-webgl-check.cjs'
   workflow_dispatch:
+  workflow_run:
+    workflows:
+      - 'pages build and deployment'
+    types:
+      - completed
 permissions:
   contents: read
 jobs:
   webgl:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
-    timeout-minutes: 6
+    timeout-minutes: 9
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - run: npm install --no-save --no-package-lock playwright@1.56.1
-      - name: Check optional 3D renderer on public Pages
+      - name: Install browser driver
+        run: npm install --no-save --no-package-lock playwright@1.56.1
+      - name: Verify current deployed 3D and fallback
         run: node tools/v3-webgl-check.cjs
-      - uses: actions/upload-artifact@v4
+      - name: Upload screenshots and audit report
+        uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: v3-webgl-screenshot
-          path: v3-webgl-public.png
-          if-no-files-found: ignore
+          name: kraken-v3-webgl-evidence
+          path: v3-webgl-evidence/
+          retention-days: 14
+          if-no-files-found: error
