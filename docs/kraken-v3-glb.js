@@ -46,23 +46,26 @@ export async function createKrakenStage({canvas,isActive,isReduced,pointer}){
    if(disposed)throw Error('3D viewer closed during load');
    const model=gltf.scene;
    scene.add(model);model.rotation.y=-.11;
-   let skinned=0,bones=0,faces=0;
+   let skinnedPrimitives=0,faces=0;
    model.traverse(obj=>{
       if(obj.isSkinnedMesh){
-       skinned++;
-       bones+=obj.skeleton?.bones?.length||0;
+       skinnedPrimitives++;
        const geo=obj.geometry;if(geo?.index)faces+=geo.index.count/3;
       }
    });
-   if(skinned!==8||bones!==80||!gltf.animations?.length){
-     throw Error('GLB failed rig integrity checks: '+skinned+' skinned meshes, '+bones+' bones');
+   // A glTF skin may be used by multiple primitives with different materials.
+   // Count the eight skins and their 80 joints from the authoritative file.
+   const skins=gltf.parser.json.skins||[];
+   const boneCount=skins.reduce((n,skin)=>n+skin.joints.length,0);
+   if(skins.length!==8||boneCount!==80||skinnedPrimitives<8||!gltf.animations?.length){
+     throw Error('GLB rig verification failed: '+skins.length+' skins, '+boneCount+' joints, '+skinnedPrimitives+' primitives');
    }
    mixer=new T.AnimationMixer(model);
    clip=gltf.animations[0];
    mixer.clipAction(clip).setLoop(T.LoopRepeat,Infinity).play();
    canvas.dataset.model='kraken-cinematic-rig.glb';
-   canvas.dataset.skinCount=String(skinned);
-   canvas.dataset.boneCount=String(bones);
+   canvas.dataset.skinCount=String(skins.length);
+   canvas.dataset.boneCount=String(boneCount);
    canvas.dataset.animationCount=String(gltf.animations.length);
    canvas.dataset.faces=String(faces);
    // Lightweight backdrop particles, separate from character geometry.
