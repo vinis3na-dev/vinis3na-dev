@@ -1,89 +1,197 @@
 <div align="center">
 
-<img src="./assets/command-center-hero.jpg" alt="VINIS3NA.DEV — KRAKEN Neural Terminal, ambiente cinematográfico espacial" width="100%" />
+<img src="./assets/command-center-hero.jpg" alt="VINIS3NA.DEV — central de comando espacial KRAKEN" width="100%" />
 
-### KRAKEN // COMMAND CENTER V3
+# VINIS3NA.DEV
+**KRAKEN // COMMAND CENTER V3**
 
-**Engenharia de IA** · **Mundos 3D** · **Software** · **Sistemas neurais**
+**IA & SISTEMAS NEURAIS** · **ENGENHARIA DE SOFTWARE** · **JOGOS & SIMULAÇÃO 3D**
 
-[**PROJETOS**](#-projetos-em-destaque) · [**LABORATÓRIO NEURAL**](#-laboratório-neural) · [**REPOSITÓRIOS**](https://github.com/vinis3na-dev?tab=repositories)
+[**◈ ABRIR PORTFÓLIO**](https://vinis3na-dev.github.io/vinis3na-dev/) &nbsp;·&nbsp; [**PROJETOS**](#-projetos-em-destaque) &nbsp;·&nbsp; [**TECNOLOGIAS**](#-matriz-tecnológica) &nbsp;·&nbsp; [**REPOSITÓRIOS**](https://github.com/vinis3na-dev?tab=repositories)
 
 *Exploração espacial, sistemas inteligentes e experiências digitais.*
 
 </div>
 
-<div align="center">
-
-**[◈ ACESSAR KRAKEN COMMAND CENTER V3](https://vinis3na-dev.github.io/vinis3na-dev/)**
-
-**[Abrir portfólio cinematográfico V3](https://vinis3na-dev.github.io/vinis3na-dev/)** · [Explorar repositórios](https://github.com/vinis3na-dev?tab=repositories)
-
-</div>
-
-
-
 ---
 
-## 🚀 Projetos em Destaque
-
-Uma seleção visual dos projetos. As artes são conceituais; clique para ler os detalhes.
+## ◈ KRAKEN // Visão Geral
 
 <table>
 <tr>
-<td align="center" width="50%"><a href="#kraken-code"><img src="./assets/card-kraken-code.jpg" width="100%" alt="KRAKEN Code — interface cyberpunk com mascote e painéis" /></a></td>
-<td align="center" width="50%"><a href="#cerebri-digital"><img src="./assets/card-cerebri-digital.jpg" width="100%" alt="Cerebri Digital — cérebro neural holográfico" /></a></td>
-</tr>
-<tr>
-<td align="center"><a href="#renegade-wars"><img src="./assets/card-renegade-wars.jpg" width="100%" alt="Renegade Wars — nave espacial procedural" /></a></td>
-<td align="center"><a href="#afterfall"><img src="./assets/card-afterfall.jpg" width="100%" alt="Afterfall — sobrevivente num mundo pós-apocalíptico" /></a></td>
-</tr>
-<tr>
-<td align="center" colspan="2"><a href="#obra-pronta"><img src="./assets/card-obra-pronta.jpg" width="48%" alt="Obra-Pronta — gestão de obras, estoque e requisições" /></a></td>
+<td width="52%" valign="top">
+
+### Engenharia & Pesquisa
+
+Desenvolvimento de **IA aplicada, aplicativos, ferramentas desktop, jogos e experiências 3D**, com atenção à arquitetura, testes e evolução incremental.
+
+- **Inteligência artificial:** agentes, memória, sistemas neurais e modelos locais.
+- **Software:** desktop, aplicações web, APIs e automação.
+- **Game systems:** mundos persistentes, sistemas procedurais e NPCs.
+- **Engenharia:** integrações, validação e manutenção de projetos reais.
+
+</td>
+<td width="48%" valign="top">
+
+### Matriz de Atuação
+
+| Área | Stack |
+|:--|:--|
+| **IA / Neural** | Python · Ollama · SNN |
+| **Desktop / Web** | C# · .NET · React · TypeScript |
+| **Jogos / 3D** | Godot · GDScript · OpenTK |
+| **Sistemas** | Node.js · APIs · Git |
+
+[**EXPLORAR CENTRAL DE COMANDO ↗**](https://vinis3na-dev.github.io/vinis3na-dev/)
+
+</td>
 </tr>
 </table>
 
-### Kraken Code
-Assistente e ambiente desktop para desenvolvimento com agentes e ferramentas de IA. **Projeto privado:** [abrir repositório, caso tenha acesso](https://github.com/vinis3na-dev/kraken-code).
+## 🚀 Projetos em Destaque
 
-### Cerebri Digital
-Laboratório experimental de sistemas neurais, memória, planejamento e agentes. Representação visual conceitual.
+*Uma galeria de projetos e pesquisa. As imagens são artes conceituais, não capturas dos aplicativos.*
 
-### Renegade Wars
-Jogo espacial 3D procedural desenvolvido em C# com foco em exploração e sistemas de jogo. Representação visual conceitual.
+<table>
+<tr>
+<td width="50%" valign="top">
+<a href="https://github.com/vinis3na-dev/kraken-code"><img src="./assets/card-kraken-code.jpg" alt="Arte conceitual de KRAKEN Code" width="100%" /></a>
 
-### Afterfall
-Experimentos em sobrevivência 3D, NPCs autônomos e simulação em Godot. **Projeto privado:** [abrir repositório, caso tenha acesso](https://github.com/vinis3na-dev/AFTERFALL).
+### 🐙 KRAKEN Code
 
-### Obra-Pronta
-Aplicação de gestão de obras, estoque e processos operacionais. Representação visual conceitual.
+Ambiente desktop de programação assistida por IA, com agentes e ferramentas de desenvolvimento.
 
----
+**Electron · React · TypeScript**
 
-## 🧠 Laboratório Neural
+[**REPOSITÓRIO (ACESSO RESTRITO) ↗**](https://github.com/vinis3na-dev/kraken-code)
 
-<div align="center">
+</td>
+<td width="50%" valign="top">
+<a href="https://vinis3na-dev.github.io/vinis3na-dev/#laboratorio"><img src="./assets/card-cerebri-digital.jpg" alt="Arte conceitual de Cerebri Digital" width="100%" /></a>
 
-<img src="./assets/card-cerebri-digital.jpg" width="82%" alt="Cerebri Digital — visual cinematográfico de uma rede neural holográfica" />
+### 🧠 Cerebri Digital
 
-</div>
+Laboratório experimental de arquiteturas neurais, memória, planejamento, aprendizado e agentes.
 
-**Cerebri Digital:** pesquisa experimental em arquiteturas neurais, agentes, memória e aprendizado. A imagem é uma representação artística, não telemetria ou captura de software.
+**Python · SNN · Sistemas neurais**
 
-O laboratório interativo da V3 oferece transições holográficas e movimento suave no navegador; o README do GitHub utiliza imagens estáticas para preservar a qualidade visual.
+[**EXPLORAR LABORATÓRIO ↗**](https://vinis3na-dev.github.io/vinis3na-dev/#laboratorio)
 
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<a href="https://vinis3na-dev.github.io/vinis3na-dev/#projetos"><img src="./assets/card-renegade-wars.jpg" alt="Arte conceitual de Renegade Wars" width="100%" /></a>
 
----
+### 🚀 Renegade Wars
 
-## 🛠️ Tecnologias e Ferramentas
+Jogo espacial procedural em C#, com exploração, renderização e sistemas de gameplay.
 
-| Inteligência artificial | Jogos e gráficos | Aplicações e infraestrutura |
-|:--:|:--:|:--:|
-| Python · Agentes · Ollama | Godot · GDScript · Three.js | TypeScript · JavaScript · React |
-| Redes neurais · Memória | C# · C++ · OpenGL · Vulkan | .NET · Node.js · Vite · Git |
+**C# · .NET · 3D**
 
----
+[**VER NO PORTFÓLIO ↗**](https://vinis3na-dev.github.io/vinis3na-dev/#projetos)
 
-## 📂 Outros Projetos
+</td>
+<td width="50%" valign="top">
+<a href="https://github.com/vinis3na-dev/AFTERFALL"><img src="./assets/card-afterfall.jpg" alt="Arte conceitual de Afterfall" width="100%" /></a>
+
+### 🌆 Afterfall
+
+Sobrevivência em Godot com mundo persistente, NPCs autônomos, recursos e exploração.
+
+**Godot · GDScript · Survival**
+
+[**REPOSITÓRIO (ACESSO RESTRITO) ↗**](https://github.com/vinis3na-dev/AFTERFALL)
+
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
+<a href="https://vinis3na-dev.github.io/vinis3na-dev/#projetos"><img src="./assets/card-obra-pronta.jpg" alt="Arte conceitual de Obra-Pronta" width="100%" /></a>
+
+### 🏗️ Obra-Pronta
+
+Gestão de obras, estoque, requisições e processos operacionais com foco em engenharia.
+
+**Aplicações web · Backend · Gestão**
+
+[**VER NO PORTFÓLIO ↗**](https://vinis3na-dev.github.io/vinis3na-dev/#projetos)
+
+</td>
+<td width="50%" valign="top">
+
+### 🌌 KRAKEN Command Center V3
+
+<img src="./assets/kraken-cinematic-banner.jpg" alt="Identidade cinematográfica espacial do KRAKEN" width="100%" />
+
+**O portfólio interativo em ambiente espacial.** Câmeras 3D, salas holográficas, transições e exploração dos projetos.
+
+[**ABRIR EXPERIÊNCIA V3 ↗**](https://vinis3na-dev.github.io/vinis3na-dev/)
+
+</td>
+</tr>
+</table>
+
+## 🛠️ Matriz Tecnológica
+
+<table>
+<tr>
+<td width="33%" valign="top">
+
+### 🧠 AI & Neural
+
+**Python · Ollama · Agentes**
+
+Modelos locais, memória, automação, redes neurais e aprendizado experimental.
+
+</td>
+<td width="33%" valign="top">
+
+### ⚙️ Software
+
+**C# · .NET · TypeScript**
+
+React, Node.js, Electron, APIs e aplicativos desktop e web.
+
+</td>
+<td width="34%" valign="top">
+
+### 🎮 World Systems
+
+**Godot · GDScript · OpenTK**
+
+Renderização, sobrevivência, sistemas procedurais, física e simulação 3D.
+
+</td>
+</tr>
+</table>
+
+## 📡 Atividade e Código
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+### Repositórios e contribuições
+
+Projetos públicos, código disponível e histórico real de contribuições. **Sem contadores simulados.**
+
+[**VER REPOSITÓRIOS ↗**](https://github.com/vinis3na-dev?tab=repositories)
+
+</td>
+<td width="50%" valign="top">
+
+### Experiência interativa
+
+O README oferece uma apresentação estática. As câmeras, salas holográficas e animações WebGL funcionam no site V3.
+
+[**ABRIR PORTFÓLIO ↗**](https://vinis3na-dev.github.io/vinis3na-dev/)
+
+</td>
+</tr>
+</table>
+
+## 📂 Catálogo Completo
 
 <details>
 <summary><b>Expandir catálogo de repositórios e experimentos</b></summary>
@@ -126,18 +234,12 @@ Os links abaixo foram preservados do perfil anterior. Alguns repositórios são 
 
 ---
 
-## 📡 Atividade e Contribuições
-
-Explore as contribuições e os repositórios pela [página pública do GitHub](https://github.com/vinis3na-dev). Não exibo contadores fixos ou status fictícios.
-
----
-
 <div align="center">
 
-**KRAKEN // V3 • EXPLORE • BUILD • EVOLVE**
+### KRAKEN // EXPLORE · BUILD · EVOLVE
 
-[Repositórios](https://github.com/vinis3na-dev?tab=repositories) · [Perfil](https://github.com/vinis3na-dev)
+**[COMMAND CENTER V3](https://vinis3na-dev.github.io/vinis3na-dev/)** · **[GITHUB](https://github.com/vinis3na-dev)** · **[REPOSITÓRIOS](https://github.com/vinis3na-dev?tab=repositories)**
 
-<sub>Identidade visual cinematográfica • Artes conceituais, não capturas de aplicativos. A experiência 3D da V3 requer site próprio: o GitHub README não executa WebGL ou JavaScript.</sub>
+<sub>Visual cinematográfico com conteúdo técnico real. Artes conceituais identificadas; repositórios privados exigem acesso. A experiência 3D acontece no portfólio, não no README.</sub>
 
 </div>
