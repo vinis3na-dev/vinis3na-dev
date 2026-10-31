@@ -110,18 +110,40 @@ export function installKrakenFace(T,model){
     ]);
     add(new T.TubeGeometry(jaw,25,.008,7,false),lavender);
   }
-  // Conceal the legacy square optical primitive, not the other crown meshes.
+  // Hide the old rectangular visor by GLB geometry and material semantics.
+  // The original file does not reliably name it "Recessed optic glass".
+  // Exclude every mesh from our new mask and all skinned tentacles.
+  model.updateMatrixWorld(true);
+  const candidates=[];
   model.traverse(obj=>{
-    if(!obj.isMesh||obj===shell||obj===lens)return;
-    const mats=Array.isArray(obj.material)?obj.material:[obj.material];
-    if(mats.some(m=>/Recessed optic glass/i.test(m?.name||''))){
-      obj.visible=false;
-      hidden.push(obj);
-    }
+    if(!obj.isMesh||obj.parent===group||obj.isSkinnedMesh)return;
+    const box=new T.Box3().setFromObject(obj);
+    if(box.isEmpty())return;
+    const size=box.getSize(new T.Vector3()),center=box.getCenter(new T.Vector3());
+    const names=[obj.name,...(Array.isArray(obj.material)?obj.material:[obj.material]).map(m=>m?.name||'')].join(' ').toLowerCase();
+    const named=/(visor|optic|optical|screen|display|lens|faceplate|glass)/.test(names);
+    const central=Math.abs(center.x)<1.25 && center.y>-.55 && center.y<1.35 && center.z>.35;
+    const flat=size.x>.35 && size.x<2.35 && size.y>.11 && size.y<1.55 && size.z<.72;
+    if(central && flat)candidates.push({obj,center,size,named});
   });
+  let oldVisors=candidates.filter(c=>c.named);
+  // Fallback for unnamed glass meshes: take the flattest, central, forward
+  // screen-like panel, rather than hiding the helmet or tentacle geometry.
+  if(!oldVisors.length){
+    oldVisors=candidates
+      .filter(c=>c.size.x>.75 && c.size.y>.29 && c.size.z<.42)
+      .sort((a,b)=>(b.center.z-b.size.z*.25)-(a.center.z-a.size.z*.25))
+      .slice(0,1);
+  }
+  for(const c of oldVisors){
+    c.obj.visible=false;
+    hidden.push(c.obj);
+  }
   const stats={
     installed:group.children.length>=10,
     legacyVisorsHidden:hidden.length,
+    hiddenMeshNames:hidden.map(o=>o.name||'(unnamed)'),
+    candidateCount:candidates.length,
     bevelGeometry:2,
     opticalSlits:2
   };
