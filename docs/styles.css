@@ -40,3 +40,13 @@
     position:relative;inset:auto;order:3;padding:12px 16px
   }
 }
+
+/* Cinematic composition selectors: remain outside the interactive canvas. */
+.camera-controls{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px;position:relative;z-index:7}
+.camera-controls[hidden]{display:none!important}
+.camera-controls button{font:10px var(--mono);letter-spacing:.12em;background:#071522d9;border:1px solid #4b6780;color:#adc7d8;padding:9px 13px;min-height:36px;cursor:pointer}
+.camera-controls button[aria-pressed="true"]{color:#e5faff;border-color:#92c8db;background:#25465c}
+.camera-controls button:hover{border-color:#b9eaff}
+.camera-controls button:focus-visible{outline:2px solid #acebff;outline-offset:3px}
+@media(max-width:670px){.camera-controls{margin:13px 0 0}.camera-controls button{flex:1;min-width:73px;padding:11px 8px}}
+@media(prefers-reduced-motion:reduce){.camera-controls button{transition:none}}

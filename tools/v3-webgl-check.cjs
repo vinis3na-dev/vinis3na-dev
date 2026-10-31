@@ -11,7 +11,7 @@ const sha = b => crypto.createHash('sha256').update(b).digest('hex');
   const report={url:URL,checkedAt:new Date().toISOString(),checks:{},errors:[]};
   try {
     // GitHub Pages may lag the branch after a push. Do not validate stale JavaScript.
-    const audited=['app.js','kraken-v3-glb.js','kraken-v3-surfaces.js','kraken-v3-face.js','kraken-v3-stage.js','assets/kraken-cinematic-rig.glb','styles.css'];
+    const audited=['app.js','kraken-v3-glb.js','kraken-v3-surfaces.js','kraken-v3-face.js','kraken-v3-stage.js','kraken-v3-camera.js','assets/kraken-cinematic-rig.glb','styles.css'];
     const expected=audited.map(name=>({name,hash:sha(fs.readFileSync('docs/'+name))}));
     let deployed=false;
     for(let attempt=0;attempt<45;attempt++){
@@ -53,6 +53,26 @@ const sha = b => crypto.createHash('sha256').update(b).digest('hex');
     if(/INDISPONÍVEL/i.test(buttonLabel))throw Error('3D initialization failed: '+report.errors.join(' | '));
     report.checks.activated=(await button.getAttribute('aria-pressed'))==='true';
     report.checks.canvasVisible=await canvas.isVisible();
+    // Physical camera presets. Verify optics actually move, not just button text.
+    const shotControls=page.locator('#cameraControls');
+    report.checks.cameraControlsVisible=await shotControls.isVisible();
+    await shotControls.locator('[data-camera="detail"]').click();
+    await page.waitForFunction(()=>{
+      const c=document.querySelector('#threeCanvas');
+      return c?.dataset.cameraShot==='detail' && c.dataset.cameraSettled==='true';
+    },null,{timeout:12000});
+    const closeZ=Number(await canvas.getAttribute('data-camera-z'));
+    const closeFov=Number(await canvas.getAttribute('data-camera-fov'));
+    await canvas.screenshot({path:OUT+'/camera-detail.png'});
+    report.checks.cinematicCloseup=closeZ<5.0 && closeZ>3.0
+      && closeFov>=29 && closeFov<=33;
+    await shotControls.locator('[data-camera="wide"]').click();
+    await page.waitForFunction(()=>{
+      const c=document.querySelector('#threeCanvas');
+      return c?.dataset.cameraShot==='wide' && c.dataset.cameraSettled==='true';
+    },null,{timeout:12000});
+    report.checks.cinematicReturn=Number(await canvas.getAttribute('data-camera-z'))>8.5;
+
     report.rig=await canvas.evaluate(c=>({
       asset:c.dataset.model||null,
       skins:Number(c.dataset.skinCount||0),
@@ -138,6 +158,9 @@ const sha = b => crypto.createHash('sha256').update(b).digest('hex');
     },null,{timeout:45000});
     report.checks.mobile3d=(await mobileButton.getAttribute('aria-pressed'))==='true'
       && await mobile.locator('#threeCanvas').isVisible();
+    await mobile.locator('#cameraControls [data-camera="portrait"]').click();
+    report.checks.mobileReducedCameraSnap=await mobile.locator('#threeCanvas').evaluate(c=>c.dataset.cameraShot==='portrait'&&c.dataset.cameraSettled==='true');
+    await mobile.locator('#cameraControls [data-camera="wide"]').click();
     await mobile.waitForTimeout(900);
     report.checks.respectsReducedMotion=await mobile.locator('#threeCanvas').evaluate(canvas=>
       Number(canvas.dataset.animationElapsed||0)<.06

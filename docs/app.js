@@ -35,7 +35,9 @@ const observer=new IntersectionObserver(e=>{visible=e[0]?.isIntersecting??true},
 function smooth(){frame=requestAnimationFrame(smooth);if(reduced||!visible||document.hidden)return;currentX+=(targetX-currentX)*.06;currentY+=(targetY-currentY)*.06;space.style.setProperty('--mx',currentX.toFixed(2)+'px');space.style.setProperty('--my',currentY.toFixed(2)+'px')};frame=requestAnimationFrame(smooth);
 // V3 optional Three.js: render a real procedural metallic Kraken when user chooses 3D.
 // Photographic illustration remains the default visual so CDN/WebGL failures cannot degrade the site.
-let threeReady=false,threeActive=false,threeDispose=()=>{};const canvas=$('#threeCanvas'),threeButton=$('#threeToggle');
+let threeReady=false,threeActive=false,threeDispose=()=>{},threeSetCameraShot=null;const canvas=$('#threeCanvas'),threeButton=$('#threeToggle'),cameraControls=$('#cameraControls'),cameraButtons=$('#cameraControls [data-camera]');
+function chooseCameraShot(shot){if(!threeReady||!threeActive||!threeSetCameraShot)return; if(!threeSetCameraShot(shot,reduced))return;cameraButtons.forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.camera===shot)));}
+cameraButtons.forEach(button=>button.addEventListener('click',()=>chooseCameraShot(button.dataset.camera)));
 async function startThree(){
  if(threeReady)return true;
  threeButton.disabled=true;
@@ -49,6 +51,7 @@ async function startThree(){
     pointer:()=>({x:currentX,y:currentY})
   });
   threeDispose=stage.dispose;
+  threeSetCameraShot=stage.setCameraShot;
   threeReady=true;
   return true;
  }catch(e){
@@ -60,5 +63,5 @@ async function startThree(){
   if(threeReady)threeButton.disabled=false;
  }
 }
-threeButton.addEventListener('click',async()=>{if(!threeActive){canvas.hidden=false;const ok=await startThree();if(!ok){canvas.hidden=true;return}threeActive=true;space.classList.add('three-active');hero.classList.add('three-view');threeButton.textContent='VOLTAR À ARTE CINEMATOGRÁFICA';threeButton.setAttribute('aria-pressed','true')}else{threeActive=false;space.classList.remove('three-active');hero.classList.remove('three-view');canvas.hidden=true;threeButton.textContent='VISUALIZAR MODELO 3D ↗';threeButton.setAttribute('aria-pressed','false')}});
+threeButton.addEventListener('click',async()=>{if(!threeActive){canvas.hidden=false;const ok=await startThree();if(!ok){canvas.hidden=true;return}threeActive=true;space.classList.add('three-active');hero.classList.add('three-view');threeButton.textContent='VOLTAR À ARTE CINEMATOGRÁFICA';threeButton.setAttribute('aria-pressed','true');cameraControls.hidden=false;chooseCameraShot('wide')}else{threeActive=false;space.classList.remove('three-active');hero.classList.remove('three-view');canvas.hidden=true;cameraControls.hidden=true;threeButton.textContent='VISUALIZAR MODELO 3D ↗';threeButton.setAttribute('aria-pressed','false')}});
 addEventListener('pagehide',()=>{cancelAnimationFrame(frame);observer.disconnect();threeDispose()},{once:true});
