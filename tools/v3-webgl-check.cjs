@@ -142,8 +142,15 @@ const sha = b => crypto.createHash('sha256').update(b).digest('hex');
     report.checks.respectsReducedMotion=await mobile.locator('#threeCanvas').evaluate(canvas=>
       Number(canvas.dataset.animationElapsed||0)<.06
     );
+    report.checks.mobileModelBelowControls=await mobile.evaluate(()=>{
+      const c=document.querySelector('#threeCanvas')?.getBoundingClientRect();
+      const b=document.querySelector('#threeToggle')?.getBoundingClientRect();
+      if(!c||!b)return false;
+      return c.top>=b.bottom+12 && c.width>=300 && c.height>=350
+        && c.right<=window.innerWidth+2;
+    });
     report.checks.mobileNoPageErrors=mobileErrors.length===0;
-    await mobile.screenshot({path:OUT+'/mobile-reduced-motion.png',animations:'disabled'});
+    await mobile.locator('.hero').screenshot({path:OUT+'/mobile-reduced-motion.png',animations:'disabled'});
     await mobileContext.close();
     report.passed=report.httpStatus===200 && Object.values(report.checks).every(Boolean);
   } catch(e) {
