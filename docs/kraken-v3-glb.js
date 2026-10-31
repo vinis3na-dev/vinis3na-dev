@@ -17,7 +17,7 @@ export async function createKrakenStage({canvas,isActive,isReduced,pointer}){
  renderer.setClearColor(0x000000,0);
  const scene=new T.Scene(), camera=new T.PerspectiveCamera(34,1,.1,70);
  camera.position.set(0,-.10,9.3);camera.lookAt(0,-.19,0);
- let gltf=null,mixer=null,clip=null,surfaces=null,face=null,disposed=false,frame=0,last=0,played=0;
+ let gltf=null,mixer=null,clip=null,surfaces=null,face=null,orbitalStage=null,disposed=false,frame=0,last=0,played=0;
  const lights=[
    new T.HemisphereLight(0xbde4ff,0x141222,2.1),
    new T.DirectionalLight(0x8adfff,3.3),
@@ -108,6 +108,11 @@ export async function createKrakenStage({canvas,isActive,isReduced,pointer}){
    canvas.dataset.boneCount=String(boneCount);
    canvas.dataset.animationCount=String(gltf.animations.length);
    canvas.dataset.faces=String(faces);
+   const {createOrbitalStage}=await import('./kraken-v3-stage.js');
+   orbitalStage=createOrbitalStage(T,scene);
+   canvas.dataset.orbitalRails=String(orbitalStage.stats.dockingRails);
+   canvas.dataset.orbitalMarkers=String(orbitalStage.stats.dockMarkers);
+   canvas.dataset.orbitalPool=String(orbitalStage.stats.contactPool);
    // Lightweight backdrop particles, separate from character geometry.
    const starPoints=[];
    for(let i=0;i<90;i++){
@@ -118,6 +123,7 @@ export async function createKrakenStage({canvas,isActive,isReduced,pointer}){
    starMat=new T.PointsMaterial({color:0x94d9ef,size:.021,transparent:true,opacity:.55,depthWrite:false});
    stars=new T.Points(starGeo,starMat);scene.add(stars);
  }catch(err){
+   orbitalStage?.dispose();
    face?.dispose();
    surfaces?.dispose();
    if(gltf)scene.remove(gltf.scene);
@@ -148,6 +154,7 @@ export async function createKrakenStage({canvas,isActive,isReduced,pointer}){
      gltf.scene.rotation.x+=(-p.y*.001-gltf.scene.rotation.x)*Math.min(1,delta*3.1);
      gltf.scene.position.y=Math.sin(time*.00054)*.052;
    }
+   orbitalStage?.update(time,isReduced());
    renderer.render(scene,camera);
    canvas.dataset.animationElapsed=played.toFixed(3);
  };
@@ -162,6 +169,7 @@ export async function createKrakenStage({canvas,isActive,isReduced,pointer}){
      resizeObserver.disconnect();canvas.removeEventListener('webglcontextlost',onLost);
      mixer?.stopAllAction();
      gltf?.scene.traverse(obj=>{if(obj.geometry)obj.geometry.dispose();const mm=obj.material;if(mm){for(const m of Array.isArray(mm)?mm:[mm])m.dispose()}});
+     orbitalStage?.dispose();
      face?.dispose();
      surfaces?.dispose();
      starGeo?.dispose();starMat?.dispose();env.dispose();pmrem.dispose();

@@ -9,6 +9,7 @@ on:
       - 'docs/kraken-v3-glb.js'
       - 'docs/kraken-v3-surfaces.js'
       - 'docs/kraken-v3-face.js'
+      - 'docs/kraken-v3-stage.js'
       - 'docs/assets/kraken-cinematic-rig.glb'
       - 'docs/index.html'
       - 'docs/styles.css'

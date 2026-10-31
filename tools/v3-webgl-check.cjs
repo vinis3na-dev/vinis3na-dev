@@ -11,7 +11,7 @@ const sha = b => crypto.createHash('sha256').update(b).digest('hex');
   const report={url:URL,checkedAt:new Date().toISOString(),checks:{},errors:[]};
   try {
     // GitHub Pages may lag the branch after a push. Do not validate stale JavaScript.
-    const audited=['app.js','kraken-v3-glb.js','kraken-v3-surfaces.js','kraken-v3-face.js','assets/kraken-cinematic-rig.glb','styles.css'];
+    const audited=['app.js','kraken-v3-glb.js','kraken-v3-surfaces.js','kraken-v3-face.js','kraken-v3-stage.js','assets/kraken-cinematic-rig.glb','styles.css'];
     const expected=audited.map(name=>({name,hash:sha(fs.readFileSync('docs/'+name))}));
     let deployed=false;
     for(let attempt=0;attempt<45;attempt++){
@@ -71,6 +71,8 @@ const sha = b => crypto.createHash('sha256').update(b).digest('hex');
       hiddenLegacy:Number(c.dataset.faceVisorsReplaced||0),
       opticalSlits:Number(c.dataset.faceSlits||0)
     }));
+    report.stage=await canvas.evaluate(c=>({rails:Number(c.dataset.orbitalRails||0),markers:Number(c.dataset.orbitalMarkers||0),pool:c.dataset.orbitalPool==='true'}));
+    report.checks.orbitalStage=report.stage.rails===3 && report.stage.markers===32 && report.stage.pool;
     report.checks.sculptedVisor=report.face.beveled
       && report.face.hiddenLegacy>=1
       && report.face.opticalSlits===2;
