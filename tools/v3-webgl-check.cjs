@@ -64,7 +64,7 @@ const sha = b => crypto.createHash('sha256').update(b).digest('hex');
     const closeZ=Number(await canvas.getAttribute('data-camera-z'));
     const closeFov=Number(await canvas.getAttribute('data-camera-fov'));
     await canvas.screenshot({path:OUT+'/camera-detail.png'});
-    report.checks.cinematicCloseup=closeZ<5.0 && closeZ>3.0
+    report.checks.cinematicCloseup=closeZ<6.7 && closeZ>5.8
       && closeFov>=29 && closeFov<=33;
     await shotControls.locator('[data-camera="wide"]').click();
     await page.waitForFunction(()=>{

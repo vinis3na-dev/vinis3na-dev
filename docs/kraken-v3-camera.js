@@ -7,7 +7,7 @@ export function createCinematicCamera(T,camera,canvas) {
   const shots=Object.freeze({
     wide:{position:[0,-.10,9.3],look:[0,-.19,0],fov:34},
     portrait:{position:[1.0,.54,7.05],look:[0,.22,0],fov:30},
-    detail:{position:[.46,.89,4.20],look:[0,.72,0],fov:31}
+    detail:{position:[.24,.64,6.25],look:[0,.54,0],fov:31}
   });
   const targetPosition=new T.Vector3(...shots.wide.position);
   const targetLook=new T.Vector3(...shots.wide.look);
