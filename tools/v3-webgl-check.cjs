@@ -115,6 +115,36 @@ const sha = b => crypto.createHash('sha256').update(b).digest('hex');
       && fallbackErrors.length===0;
     await fallback.screenshot({path:OUT+'/offline-fallback.png',animations:'disabled'});
     await offline.close();
+    // Mobile viewport and user accessibility settings: no hidden clipping or
+    // obligatory animation. Do not infer actual FPS from synthetic CI hardware.
+    const mobileContext=await browser.newContext({
+      viewport:{width:390,height:844},
+      isMobile:true,hasTouch:true,deviceScaleFactor:1,
+      reducedMotion:'reduce'
+    });
+    const mobile=await mobileContext.newPage(),mobileErrors=[];
+    mobile.on('pageerror',error=>mobileErrors.push(error.message));
+    const mobileResponse=await mobile.goto(URL,{waitUntil:'domcontentloaded',timeout:60000});
+    report.checks.mobileHttp200=mobileResponse?.status()===200;
+    report.checks.mobileNoHorizontalOverflow=await mobile.evaluate(()=>
+      document.documentElement.scrollWidth<=window.innerWidth+2
+    );
+    const mobileButton=mobile.locator('#threeToggle');
+    await mobileButton.click({timeout:15000});
+    await mobile.waitForFunction(()=>{
+      const b=document.querySelector('#threeToggle');
+      return b?.getAttribute('aria-pressed')==='true'
+        || /INDISPONÍVEL/i.test(b?.textContent||'');
+    },null,{timeout:45000});
+    report.checks.mobile3d=(await mobileButton.getAttribute('aria-pressed'))==='true'
+      && await mobile.locator('#threeCanvas').isVisible();
+    await mobile.waitForTimeout(900);
+    report.checks.respectsReducedMotion=await mobile.locator('#threeCanvas').evaluate(canvas=>
+      Number(canvas.dataset.animationElapsed||0)<.06
+    );
+    report.checks.mobileNoPageErrors=mobileErrors.length===0;
+    await mobile.screenshot({path:OUT+'/mobile-reduced-motion.png',animations:'disabled'});
+    await mobileContext.close();
     report.passed=report.httpStatus===200 && Object.values(report.checks).every(Boolean);
   } catch(e) {
     report.error=String(e.message||e);
