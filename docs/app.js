@@ -35,7 +35,7 @@ const observer=new IntersectionObserver(e=>{visible=e[0]?.isIntersecting??true},
 function smooth(){frame=requestAnimationFrame(smooth);if(reduced||!visible||document.hidden)return;currentX+=(targetX-currentX)*.06;currentY+=(targetY-currentY)*.06;space.style.setProperty('--mx',currentX.toFixed(2)+'px');space.style.setProperty('--my',currentY.toFixed(2)+'px')};frame=requestAnimationFrame(smooth);
 // V3 optional Three.js: render a real procedural metallic Kraken when user chooses 3D.
 // Photographic illustration remains the default visual so CDN/WebGL failures cannot degrade the site.
-let threeReady=false,threeActive=false,threeDispose=()=>{},threeSetCameraShot=null;const canvas=$('#threeCanvas'),threeButton=$('#threeToggle'),cameraControls=$('#cameraControls'),cameraButtons=$('#cameraControls [data-camera]');
+let threeReady=false,threeActive=false,threeDispose=()=>{},threeSetCameraShot=null;const canvas=$('#threeCanvas'),threeButton=$('#threeToggle'),cameraControls=$('#cameraControls'),cameraButtons=$$('#cameraControls [data-camera]');
 function chooseCameraShot(shot){if(!threeReady||!threeActive||!threeSetCameraShot)return; if(!threeSetCameraShot(shot,reduced))return;cameraButtons.forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.camera===shot)));}
 cameraButtons.forEach(button=>button.addEventListener('click',()=>chooseCameraShot(button.dataset.camera)));
 async function startThree(){
